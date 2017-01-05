@@ -35,7 +35,7 @@ inline void microWaitUntil(unsigned long target_micros){
 class BasicStepperDriver {
 protected:
     int motor_steps;
-    int rpm = 60;
+    float rpm = 60.0;
     int dir_pin;
     int step_pin;
     int enable_pin = PIN_UNCONNECTED;
@@ -94,7 +94,7 @@ public:
     /*
      * Set target motor RPM (1-200 is a reasonable range)
      */
-    void setRPM(unsigned rpm);
+    void setRPM(float rpm);
     /*
      * Turn off/on motor to allow the motor to be moved by hand/hold the position in place
      */

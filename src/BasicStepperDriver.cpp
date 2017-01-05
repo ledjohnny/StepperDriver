@@ -38,20 +38,21 @@ void BasicStepperDriver::init(void){
     }
 
     setMicrostep(1);
-    setRPM(60); // 60 rpm is a reasonable default
+    setRPM(60.0); // 60 rpm is a reasonable default
 
     enable();
 }
 
 
 void BasicStepperDriver::calcStepPulse(void){
-    step_pulse = STEP_PULSE(rpm, motor_steps, microsteps);
+    // 60[s/min] * 1000000[us/s] / microsteps / steps / rpm
+    step_pulse = 60 * 1000L * 1000L / motor_steps / microsteps / rpm;
 }
 
 /*
  * Set target motor RPM (1-200 is a reasonable range)
  */
-void BasicStepperDriver::setRPM(unsigned rpm){
+void BasicStepperDriver::setRPM(float rpm){
     this->rpm = rpm;
     calcStepPulse();
 }
